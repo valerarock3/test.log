@@ -6,7 +6,10 @@ use Yii;
 use yii\web\Controller;
 use app\models\LoginForm;
 use app\models\RegisterForm;
+use app\models\ContactForm;
+use app\models\User;
 use yii\web\Response;
+
 
 class BooksController extends Controller
 {
@@ -55,6 +58,33 @@ class BooksController extends Controller
     {
         Yii::$app->user->logout();
         return $this->goHome();
+    }
+
+
+    // страница с контактами
+
+    public function actionContact()
+    {
+        $model = new ContactForm();
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
+                Yii::$app->session->setFlash('contactFormSubmitted');
+
+                return $this->refresh();
+            } else {
+                Yii::$app->session->setFlash('error', 'There was an error sending your message.');
+            }
+        }
+
+        return $this->render('contact', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionAbout()
+    {
+        return $this->render('about');
     }
   
 }

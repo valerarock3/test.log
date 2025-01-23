@@ -38,8 +38,8 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav'],
         'items' => [
             ['label' => 'Главная страница', 'url' => ['/books/home']],
-            ['label' => 'О нас', 'url' => ['/site/about']],
-            ['label' => 'Контакты', 'url' => ['/site/contact']],
+            ['label' => 'О нас', 'url' => ['/books/about']],
+            ['label' => 'Контакты', 'url' => ['/books/contact']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Логин', 'url' => ['/books/login']]
             ) : (
@@ -51,7 +51,7 @@ AppAsset::register($this);
                 )
                 . Html::endForm()
                 . '</li>'
-            )
+            ) 
         ],
     ]);
     NavBar::end();

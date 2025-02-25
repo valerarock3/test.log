@@ -7,8 +7,8 @@ use app\assets\AppAsset;
 use app\widgets\Alert;
 use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap4\Html;
-use yii\bootstrap4\Nav;
-use yii\bootstrap4\NavBar;
+use yii\bootstrap5\Nav;
+use yii\bootstrap5\NavBar;
 
 AppAsset::register($this);
 ?>
@@ -21,6 +21,24 @@ AppAsset::register($this);
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+    
+    <!-- Добавим скрипт для эффекта при скролле -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    document.querySelector('.navbar').classList.add('scrolled');
+                } else {
+                    document.querySelector('.navbar').classList.remove('scrolled');
+                }
+            });
+        });
+    </script>
+
+    <?php
+    $this->registerCssFile('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+    $this->registerCssFile('@web/css/site.css');
+    ?>
 </head>
 <body class="d-flex flex-column h-100">
 <?php $this->beginBody() ?>
@@ -28,32 +46,30 @@ AppAsset::register($this);
 <header>
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
+        'brandLabel' => 'My Application',
         'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
-        ],
+        'options' => ['class' => 'navbar navbar-expand-lg navbar-dark fixed-top']
     ]);
+
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
-        ],
+            ['label' => 'Главная страница', 'url' => ['/site/index']],
+            ['label' => 'О нас', 'url' => ['/site/about']],
+            ['label' => 'Контакты', 'url' => ['/site/contact']],
+            Yii::$app->user->isGuest
+                ? ['label' => 'Войти', 'url' => ['/books/login']]
+                : [
+                    'label' => Yii::$app->user->identity->username,
+                    'items' => [
+                        ['label' => 'Профиль', 'url' => ['/books/profile']],
+                        ['label' => 'AI Ассистент', 'url' => ['/books/ai-chat']],
+                        ['label' => 'Выйти', 'url' => ['/books/logout'], 'linkOptions' => ['data-method' => 'post']]
+                    ]
+                ]
+        ]
     ]);
+
     NavBar::end();
     ?>
 </header>

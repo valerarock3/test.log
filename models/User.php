@@ -2,19 +2,56 @@
  
 namespace app\models; 
  
+use Yii;
 use yii\db\ActiveRecord; 
 use yii\web\IdentityInterface; 
+use yii\base\NotSupportedException;
  
 class User extends ActiveRecord implements IdentityInterface 
 { 
-    public $username; 
-    public $password; 
-    public $auth_key; 
+    const STATUS_DELETED = 0;
+    const STATUS_ACTIVE = 10;
+
     public static function tableName() 
     { 
-        return 'user'; 
+        return 'valera.user'; 
     } 
- 
+
+    public function attributes()
+    {
+        return [
+            'id',
+            'username',
+            'password',
+            'auth_key',
+            'email',
+            'confirmPassword',
+            'avatar'
+        ];
+    }
+
+    public function rules()
+    {
+        return [
+            [['username', 'password', 'email'], 'required'],
+            ['email', 'email'],
+            ['username', 'unique'],
+            ['email', 'unique'],
+            ['confirmPassword', 'safe']
+        ];
+    }
+
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord) {
+                $this->auth_key = Yii::$app->security->generateRandomString();
+            }
+            return true;
+        }
+        return false;
+    }
+
     /** 
      * Finds an identity by the given ID. 
      * 
@@ -34,7 +71,7 @@ class User extends ActiveRecord implements IdentityInterface
      */ 
     public static function findIdentityByAccessToken($token, $type = null) 
     { 
-        return static::findOne(['access_token' => $token]); 
+        throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.'); 
     } 
  
     /** 
@@ -59,6 +96,26 @@ class User extends ActiveRecord implements IdentityInterface
      */ 
     public function validateAuthKey($authKey) 
     { 
-        return $this->getAuthKey() === $authKey; 
+        return $this->auth_key === $authKey; 
     } 
+
+    public static function findByUsername($username)
+    {
+        return static::findOne(['username' => $username]);
+    }
+
+    public function validatePassword($password)
+    {
+        return $this->password === $password;
+    }
+
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
+    public function generateAuthKey()
+    {
+        $this->auth_key = Yii::$app->security->generateRandomString();
+    }
 }

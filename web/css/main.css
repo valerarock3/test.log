@@ -1,0 +1,273 @@
+/* Общие стили */
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+}
+
+/* Обновленные стили для хедера */
+.navbar {
+    background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%) !important;
+    padding: 15px 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5em;
+    color: #fff !important;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 5px 15px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.navbar-brand:hover {
+    border-color: rgba(255,255,255,0.3);
+    transform: translateY(-2px);
+    text-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
+
+.navbar-nav {
+    margin-left: auto;
+}
+
+.nav-item {
+    margin: 0 5px;
+    position: relative;
+}
+
+.nav-link {
+    color: rgba(255,255,255,0.9) !important;
+    font-weight: 500;
+    padding: 8px 15px !important;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #fff !important;
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-2px);
+}
+
+.nav-link.active {
+    background: rgba(255,255,255,0.2);
+    color: #fff !important;
+}
+
+/* Анимация для активного состояния */
+.nav-link:before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: #fff;
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover:before {
+    width: 70%;
+}
+
+/* Добавим стили для выпадающего меню */
+.dropdown-menu {
+    background: rgba(44, 62, 80, 0.95);
+    backdrop-filter: blur(10px);
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.dropdown-item {
+    color: rgba(255,255,255,0.8);
+    padding: 8px 20px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.dropdown-item:hover {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    transform: translateX(5px);
+}
+
+/* Добавим анимацию для фиксированного хедера при скролле */
+.navbar.scrolled {
+    padding: 10px 0;
+    background: rgba(44, 62, 80, 0.95) !important;
+    backdrop-filter: blur(10px);
+}
+
+/* Добавим стили для мобильного меню */
+.navbar-toggler {
+    border: none;
+    padding: 10px;
+    outline: none !important;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(255, 255, 255, 0.9)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* Добавим анимацию для появления меню */
+@keyframes slideDown {
+    from {
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.navbar-collapse.show {
+    animation: slideDown 0.3s ease forwards;
+}
+
+/* Стили для главной страницы */
+.welcome-container {
+    text-align: center;
+    padding: 100px 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.welcome-title {
+    font-size: 3.5em;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    animation: fadeInDown 1s ease;
+}
+
+.btn-group {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 40px;
+    animation: fadeInUp 1s ease;
+}
+
+.btn-login {
+    background: #3498db;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+}
+
+.btn-register {
+    background: #2ecc71;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+}
+
+.btn-login:hover, .btn-register:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    color: white;
+}
+
+/* Анимации */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Обновленные стили для футера */
+.footer {
+    background: linear-gradient(to right, #2c3e50, #3498db);
+    color: rgba(255, 255, 255, 0.8);
+    padding: 15px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+    backdrop-filter: blur(10px);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-left {
+    text-align: left;
+}
+
+.footer-right {
+    text-align: right;
+}
+
+.footer p {
+    margin: 0;
+    font-size: 0.9em;
+    letter-spacing: 0.5px;
+}
+
+.footer a {
+    color: #fff;
+    text-decoration: none;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.footer a:hover {
+    color: #74b9ff;
+    text-shadow: 0 0 8px rgba(116, 185, 255, 0.5);
+}
+
+.footer a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: #74b9ff;
+    transition: width 0.3s ease;
+}
+
+.footer a:hover::after {
+    width: 100%;
+} 

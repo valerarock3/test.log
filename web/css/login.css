@@ -1,0 +1,25 @@
+.site-login {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.checkbox label {
+    padding-left: 20px;
+}
+
+.btn-primary {
+    width: 100%;
+    margin-top: 15px;
+} 

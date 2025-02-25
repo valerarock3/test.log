@@ -1,0 +1,25 @@
+.site-register {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.form-horizontal {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.control-label {
+    font-weight: bold;
+}
+
+.help-block {
+    color: #dc3545;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+.btn-primary {
+    margin-top: 15px;
+} 
